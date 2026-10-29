@@ -46,6 +46,25 @@ public class CustomArrayList<T> {
     return (T) elementRemoved;
   }
 
+  public boolean add(T element) {
+    ensureCapacity(size + 1);
+    elements[size] = element;
+    size++;
+    return true;
+
+  }
+
+  public void add(int index, T element) {
+    checkElementIndex(index);
+    ensureCapacity(size + 1);
+    checkPositionIndex(index);
+    for (int i = size; i > index; i--) {
+      elements[i] = elements[i - 1];
+    }
+    elements[index] = element;
+    size++;
+  }
+
   private void checkElementIndex(int index) {
     if (index < 0 || index >= size) {
       throw new IndexOutOfBoundsException(
@@ -58,6 +77,18 @@ public class CustomArrayList<T> {
       throw new IndexOutOfBoundsException(
           "Index: " + index + ", Size: " + size);
     }
+  }
+
+  private void ensureCapacity(int minimumCapacity) {
+    if (minimumCapacity <= elements.length) {
+      return;
+    }
+    int newCapacity = Math.max(elements.length * 2, minimumCapacity);
+    Object[] extendedElements = new Object[newCapacity];
+    for (int i = 0; i < size; i++) {
+      extendedElements[i] = elements[i];
+    }
+    elements = extendedElements;
   }
 
 }
