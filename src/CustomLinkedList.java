@@ -1,3 +1,4 @@
-public class CustomLinkedList {
+public class CustomLinkedList<T>{
   
+
 }
